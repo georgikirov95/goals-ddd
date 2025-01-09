@@ -52,6 +52,7 @@ public class Goal {
     }
 
     public void setTitle(String title) {
+        if(title.isEmpty() || title.isBlank()) throw new RuntimeException("Title is empty.");
         this.title = title;
     }
 
@@ -60,6 +61,7 @@ public class Goal {
     }
 
     public void setDueDate(LocalDate dueDate) {
+        if(dueDate.isBefore(LocalDate.now())) throw new RuntimeException("Due Date is in the past.");
         this.dueDate = dueDate;
     }
 
@@ -80,6 +82,8 @@ public class Goal {
     }
 
     public int getProgress() {
+        if(tasks.isEmpty()) return 0;
+
         int completedTasks = (int) this.tasks.stream()
                 .filter(Task::getCompleted)
                 .count();
@@ -87,6 +91,7 @@ public class Goal {
     }
 
     public void addTask(Task task) {
+        if(status.equals(Status.COMPLETED)) throw new RuntimeException("Goal is already completed.");
         this.tasks.add(task);
         updateStatus();
     }
@@ -100,10 +105,12 @@ public class Goal {
     }
 
     public void completeAllTasks() {
+        if(tasks.isEmpty()) return;
+
         for(Task task : getTasks()) {
             task.markAsCompleted();
         }
-        updateStatus();
+        status = Status.COMPLETED;
     }
 
     private Task getTask(Long taskId) {
