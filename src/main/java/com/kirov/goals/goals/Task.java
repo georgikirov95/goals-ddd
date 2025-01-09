@@ -2,8 +2,12 @@ package com.kirov.goals.goals;
 
 import jakarta.persistence.*;
 
-
-@Entity
+/**
+ * The Task class represents a rich domain object for individual tasks in the system.
+ * It encapsulates both the state and behavior of a task,
+ * adhering to the principles of object-oriented design.
+ */
+ @Entity
 @Table(name = "tasks")
 public class Task {
     @Id
