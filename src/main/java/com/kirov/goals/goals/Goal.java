@@ -93,7 +93,6 @@ public class Goal {
     public void addTask(Task task) {
         if(status.equals(Status.COMPLETED)) throw new RuntimeException("Goal is already completed.");
         this.tasks.add(task);
-        updateStatus();
     }
 
     public void completeTask(Long taskId) {
