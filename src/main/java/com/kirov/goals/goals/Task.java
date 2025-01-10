@@ -16,13 +16,14 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private Boolean completed = false;
+    private Boolean completed;
     private LocalDate dueDate;
 
     public static Task create(String title, LocalDate dueDate) {
         Task task = new Task();
         task.setTitle(title);
         task.setDueDate(dueDate);
+        task.setCompleted(false);
         return task;
     }
 
