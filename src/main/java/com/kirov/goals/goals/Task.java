@@ -40,6 +40,7 @@ public class Task {
     }
 
     public void setTitle(String title) {
+        if(title.isEmpty() || title.isBlank()) throw new RuntimeException("Title is empty.");
         this.title = title;
     }
 
