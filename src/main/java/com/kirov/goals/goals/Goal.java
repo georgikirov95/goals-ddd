@@ -61,7 +61,8 @@ public class Goal {
     }
 
     public void setDueDate(LocalDate dueDate) {
-        if(dueDate.isBefore(LocalDate.now())) throw new RuntimeException("Due Date is in the past.");
+        if(dueDate.isBefore(LocalDate.now())) throw new RuntimeException("Due date is in the past.");
+
         this.dueDate = dueDate;
     }
 
@@ -91,7 +92,11 @@ public class Goal {
     }
 
     public void addTask(Task task) {
-        if(status.equals(Status.COMPLETED)) throw new RuntimeException("Goal is already completed.");
+        if(status.equals(Status.COMPLETED))
+            throw new RuntimeException("Goal is already completed.");
+
+        if(this.dueDate.isBefore(task.getDueDate()))
+            throw new RuntimeException("Task due date cannot be after the goal's due date.");
         this.tasks.add(task);
     }
 

@@ -3,8 +3,6 @@ package com.kirov.goals.goals;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-
 @RestController
 @RequestMapping("/goals")
 public class GoalController {
@@ -25,7 +23,7 @@ public class GoalController {
         Goal goal = this.getGoal(goalId);
         if(goal == null) return ResponseEntity.notFound().build();
 
-        Task task = Task.create(taskDto.getTitle());
+        Task task = Task.create(taskDto.getTitle(), taskDto.getDueDate());
         goal.addTask(task);
 
         return ResponseEntity.ok(this.goals.save(goal));

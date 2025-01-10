@@ -2,6 +2,8 @@ package com.kirov.goals.goals;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 /**
  * The Task class represents a rich domain object for individual tasks in the system.
  * It encapsulates both the state and behavior of a task,
@@ -15,10 +17,12 @@ public class Task {
     private Long id;
     private String title;
     private Boolean completed = false;
+    private LocalDate dueDate;
 
-    public static Task create(String title) {
+    public static Task create(String title, LocalDate dueDate) {
         Task task = new Task();
         task.setTitle(title);
+        task.setDueDate(dueDate);
         return task;
     }
 
@@ -44,6 +48,15 @@ public class Task {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        if(dueDate.isBefore(LocalDate.now())) throw new RuntimeException("Due date is in the past.");
+        this.dueDate = dueDate;
     }
 
     public void markAsCompleted() {
